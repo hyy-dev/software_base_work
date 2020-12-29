@@ -1,0 +1,26 @@
+java web项目中图片放置位置：(项目文件夹)/web/static
+对应路径：static/图片名称
+关系：在java文件中读取图片时以web文件夹作为起始目录索引图片
+
+为实现代码规范所做的工作：
+1.变量命名：以小驼峰方式命名
+2.缩进：使用IDE默认的缩进方式
+3.注释：将光标放在待注释行，使用快捷键ctrl+/进行快捷、规范的注释
+
+各方法的设计思想：
+Catfish
+构造函数：使用构造参数传入的initialRow,initialColumn,initialSimulation对成员变量row,column,simulation进行赋值。初始化minEnergy,maxEnergy。并在maxEnergy与minEnergy之间随机取值对energy进行初始化。
+get方法：直接返回相应成员变量。
+setEnergy：若新的能量小于所需的最小能量，则catfish死亡，若新的能量大于最大值，则将当前能量置为最大值。剩余情况将新能量直接赋值给energy。
+die:将存活标志量deadOrAlive置为DEAD
+isDead:返回存活状态是否为死亡。
+isHungry:返回当前能量是否小于最小能量的两倍的判断结果。
+moveToRow:判断新的行值是否在模拟环境允许的取值范围内，若是则赋值给row。返回当前row值。
+moveToColumn:与moveToRow同理
+getImage:若鱼已死亡则返回空白图片，否则返回鱼的方向对应的图像。
+lookForFoodInNeighborhood：调用simulation的getNeighbors方法返回当前位置的所有生物，并遍历这个生物vector，若有藻类对象则强制转化后返回，否则返回null，表示没有食物。
+swimIfPossible：先判断当前位置有无食物，若有则调用eatIfPossible继续吃藻类而不游动。若无食物，则随机选择一个方向移动。
+eatIfPossible:调用lookForFoodInNeighborhood寻找食物，若找到则调用setEnergy增加能量。
+liveALittle:若当前能量低于最低能量则死亡，否则年龄、最小能量、最大能量都增加，并调用swimIfPossible移动。
+Crocodile与Catfish同理
+
